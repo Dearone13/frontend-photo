@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
 </head>
+
 <body>
 
     <div class="container-fluid">
@@ -18,8 +20,10 @@
                 <a href="PaginaPrincipal.html">
                     <img src="logo/LOGO(DAPA).png" alt="Logo DAPA" class="img-fluid mb-4 mx-auto d-block">
                 </a>
-                <a href="#" class="btn btn-light btn-lg btn-block mb-3"><i class="fa-solid fa-magnifying-glass"></i> Buscar</a>
-                <a href="PaginaPerfil.html" class="btn btn-light btn-lg btn-block mb-3"><i class="fa-solid fa-user"></i> Perfil</a>
+                <a href="#" class="btn btn-light btn-lg btn-block mb-3"><i class="fa-solid fa-magnifying-glass"></i>
+                    Buscar</a>
+                <a href="PaginaPerfil.html" class="btn btn-light btn-lg btn-block mb-3"><i class="fa-solid fa-user"></i>
+                    Perfil</a>
                 <a href="#" class="btn btn-light btn-lg btn-block"><i class="fa-solid fa-upload"></i> Crear</a>
             </div>
 
@@ -34,28 +38,30 @@
                                 <th scope="col" style="width: 25%;">Description</th>
                                 <th scope="col" style="width: 25%;">Image</th>
                                 <th scope="col" style="width: 15%;">Stars</th>
-                                <th scope="col" style="width: 15%;">Action</th>                       
+                                <th scope="col" style="width: 15%;">Action</th>
                             </tr>
                         </thead>
-                    <tbody>
-                        <tr>
-                            <td>Hola</td>
-                            <td>Como</td>
-                            <td>estas</td>
-                            <td>ok</td>
-                            <td>
-                              <a href="#" class="btn btn-small btn-dark" data-toggle="modal" data-target="#updateModal"><i class="fa-solid fa-pen-to-square"></i></a>
-                              <a href="" class="btn btn-small btn-dark"><i class="fa-solid fa-trash"></i></a>
-                            </td>
-                          </tr>
-                    </tbody>
+                        <tbody>
+                            <tr>
+                                <td>Hola</td>
+                                <td>Como</td>
+                                <td>estas</td>
+                                <td>ok</td>
+                                <td>
+                                    <a href="#" class="btn btn-small btn-dark" data-toggle="modal"
+                                        data-target="#updateModal"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <a href="" class="btn btn-small btn-dark"><i class="fa-solid fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
     <!----Modal de actualizar Campos-->
-    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -69,6 +75,10 @@
                         <div class="form-group">
                             <label for="description">Description</label>
                             <input type="text" class="form-control" id="description" name="description" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Imagen</label>
+                            <input type="file" class="form-control" id="image" name="Image" accept="image/*" required>
                         </div>
                     </form>
                 </div>
@@ -85,4 +95,5 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/457bda309b.js" crossorigin="anonymous"></script>
 </body>
+
 </html>
