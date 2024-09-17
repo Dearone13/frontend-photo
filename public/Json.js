@@ -32,6 +32,7 @@ document
       .then((data) => {
         console.log("Datos enviados correctamente:", data); // Manejar la respuesta del servidor
         // Aquí puedes agregar más lógica como redirigir al usuario o mostrar un mensaje de éxito
+        loadTableData();
       })
       .catch((error) => {
         console.error("Error:", error); // Manejar los errores
@@ -83,6 +84,12 @@ function loadTableData() {
 
         const actionsCell = document.createElement("td");
 
+        const hiddenInput = document.createElement("input");
+        hiddenInput.id = "id";
+        hiddenInput.type = "hidden";
+        hiddenInput.value = item.user_id;
+        actionsCell.appendChild(hiddenInput);
+
         const editButton = document.createElement("a");
         editButton.href = "#";
         editButton.className = "btn btn-sm btn-dark";
@@ -94,6 +101,8 @@ function loadTableData() {
 
         const deleteButton = document.createElement("a");
         deleteButton.href = "#";
+        deleteButton.setAttribute("data-id", item.user_id);
+        deleteButton.setAttribute("data-action", "delete"); // Esto permitirá reconocerlo
         deleteButton.className = "btn btn-sm btn-dark";
         deleteButton.innerHTML = '<i class="fa-solid fa-trash"></i>';
         actionsCell.appendChild(deleteButton);
@@ -109,8 +118,21 @@ function loadTableData() {
 // Llama a la función al cargar la página
 
 document.addEventListener("click", function (event) {
-  if (event.target.matches(".btn.btn-sm.btn-dark[data-toggle='modal']")) {
-    const userId = event.target.getAttribute("data-id");
+  let target = event.target;
+
+  // Si el clic es en el ícono dentro del botón, ajustamos el target
+  if (target.tagName === "I" && target.closest("a[data-toggle='modal']")) {
+    target = target.closest("a[data-toggle='modal']");
+  }
+
+  // Verificamos si el clic fue en el botón de editar
+  if (target.matches("a[data-toggle='modal']")) {
+    const userId = target.getAttribute("data-id");
+    console.log("User ID:", userId); // Aquí ya tienes el userId disponible
+
+    // Guardamos el userId en el campo oculto
+    document.getElementById("updateUserId").value = userId;
+
     // Hacer una solicitud GET para obtener los detalles del registro
     fetch(`http://127.0.0.1:8000/api/user/${userId}/`)
       .then((response) => {
@@ -137,8 +159,10 @@ document
   .addEventListener("submit", function (event) {
     event.preventDefault(); // Prevenir el envío del formulario por defecto
 
-    // Obtener los valores del formulario
+    // Obtener el userId del campo oculto
     const userId = document.getElementById("updateUserId").value;
+
+    // Obtener los valores del formulario
     const formData = {
       first_name: document.getElementById("updateUserName").value,
       last_name: document.getElementById("updateUserLastName").value,
@@ -164,11 +188,83 @@ document
       })
       .then((data) => {
         console.log("Datos actualizados correctamente:", data);
-        document.getElementById("updateUserModal").modal("hide"); // Cierra el modal (ajusta según tu librería/modal)
+        // Cierra el modal (ajusta según tu librería/modal)
         loadTableData();
       })
       .catch((error) => {
         console.error("Error:", error);
       });
   });
+
+document.addEventListener("click", function (event) {
+  let target = event.target;
+
+  // Si el clic es en el ícono dentro del botón, ajustamos el target
+  if (target.tagName === "I" && target.closest("a[data-toggle='modal']")) {
+    target = target.closest("a[data-toggle='modal']");
+  }
+
+  // Verificamos si el clic fue en el botón de editar
+  if (target.matches("a[data-toggle='modal']")) {
+    const userId = target.getAttribute("data-id");
+    console.log("User ID:", userId); // Aquí ya tienes el userId disponible
+
+    // Guardamos el userId en el campo oculto
+    document.getElementById("updateUserId").value = userId;
+
+    // Hacer una solicitud GET para obtener los detalles del registro
+    fetch(`http://127.0.0.1:8000/api/user/${userId}/`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok " + response.statusText);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // Rellenar el modal con los datos del usuario
+        document.getElementById("updateUserName").value = data.first_name;
+        document.getElementById("updateUserLastName").value = data.last_name;
+        document.getElementById("updateUserBirthday").value = data.birthday;
+        document.getElementById("updateUseruser").value = data.user_name;
+        document.getElementById("updateUserEmail").value = data.email;
+        document.getElementById("updateUserPassword").value = data.password;
+      })
+      .catch((error) => console.error("Error:", error));
+  }
+
+  if (target.tagName === "I" && target.closest("a[data-action='delete']")) {
+    target = target.closest("a[data-action='delete']");
+  }
+
+  // Verificar si el clic fue en el botón de eliminar
+  if (target.matches("a[data-action='delete']")) {
+    const userId = target.getAttribute("data-id");
+    console.log("User ID para eliminar:", userId);
+    deleteUser(userId);
+  }
+});
+function deleteUser(userId) {
+  // Confirmar antes de eliminar
+  if (!confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
+    return; // Si el usuario cancela, no hacemos nada
+  }
+
+  fetch(`http://127.0.0.1:8000/api/user/${userId}/`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error en la solicitud DELETE");
+      }
+      console.log("Usuario eliminado correctamente");
+      // Volver a cargar los datos en la tabla después de eliminar
+      loadTableData();
+    })
+    .catch((error) => {
+      console.error("Error al eliminar el usuario:", error);
+    });
+}
 document.addEventListener("DOMContentLoaded", loadTableData);
