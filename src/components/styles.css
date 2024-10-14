@@ -1,0 +1,36 @@
+body {
+    background-color: #eeeaea; /* Color de fondo oscuro */
+    color: rgb(8, 8, 8); /* Color del texto */
+    margin: 0; /* Eliminar márgenes por defecto */
+    font-family: Arial, sans-serif; /* Fuente predeterminada */
+}
+
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-container input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+    background-color: #333;
+    color: white;
+}
+
+.search-container .search-button {
+    position: absolute;
+    right: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.search-container input::placeholder {
+    color: #bbb; /* Color del placeholder */
+}
+
