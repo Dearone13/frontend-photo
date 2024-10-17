@@ -34,3 +34,85 @@ body {
     color: #bbb; /* Color del placeholder */
 }
 
+
+/* parte de los botones */
+.btn-link {
+    position: relative;
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.btn-link:hover, .btn-link:focus {
+    color: #007bff; /* Cambia el color de texto a azul al pasar el mouse o al enfocarse */
+}
+
+.btn-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px; /* Ubicación de la línea */
+    width: 0;
+    height: 2px; /* Grosor de la línea */
+    background-color: #007bff; /* Color de la línea */
+    transition: width 0.3s ease;
+}
+
+.btn-link:hover::after, .btn-link:focus::after {
+    width: 100%; /* Anima la línea para que se expanda completamente al pasar el mouse o enfocar */
+}
+
+
+/* parte de las fotos en la principal*/
+.photo-gallery {
+    margin: 20px 0;
+}
+
+.card {
+    border: none; 
+}
+
+
+/* componente galeria*/
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+    gap: 30px; /* Aumentar el espacio entre elementos */
+    margin-top: 30px; /* Espacio superior para la galería */
+}
+  
+.gallery-item {
+    background-color: rgb(225, 218, 218); /* Fondo blanco para cada contenedor de imagen */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil para darle profundidad */
+    text-align: center; /* Centrar el contenido de cada elemento */
+    padding: 10px; /* Espaciado interno */
+    max-height: 600px; /* Aumentar la altura máxima del contenedor */
+    overflow: hidden; /* Evitar que el contenido sobrepase el contenedor */
+}
+  
+.gallery-image {
+    max-width: 100%; /* Asegura que la imagen no exceda el ancho del contenedor */
+    max-height: 400px; /* Aumenta la altura máxima de la imagen */
+    height: auto; /* Mantener la relación de aspecto de la imagen */
+    border-radius: 4px; /* Bordes redondeados para las imágenes */
+}
+  
+.description-container {
+    max-height: 200px; /* Limitar la altura para dar más espacio a la descripción */
+    overflow-y: auto; /* Permitir el desplazamiento vertical si el contenido excede la altura */
+    padding: 0 20px; /* Espaciado lateral */
+}
+  
+.description {
+    margin: 0; /* Elimina el margen para un ajuste más limpio */
+    overflow-wrap: break-word; /* Permite que las palabras largas se rompan */
+    word-wrap: break-word; /* Compatibilidad con navegadores más antiguos */
+}
+
+
+  /* contenedor del texto */
+  .card-text {
+    max-height: 100px; /* Ajusta según sea necesario */
+    overflow: auto;
+    margin: 0; /* Elimina el margen para que se vea limpio */
+}

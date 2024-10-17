@@ -4,6 +4,7 @@ import './styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faUser, faUpload, faPlus, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Modal, Button, Table } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 function TablaUsuarios() {
   // Estados para manejar la visibilidad de los modales
@@ -17,32 +18,67 @@ function TablaUsuarios() {
   const handleShowUpdateModal = () => setShowUpdateModal(true);
   const handleCloseUpdateModal = () => setShowUpdateModal(false);
 
+  const navigate = useNavigate();
+
   return (
     <div className="container-fluid">
       {/* Contenedor principal */}
       <div className="row">
-        <div className="col-md-2 sidebar">
-          <a href="/PaginaPrincipal">
-            <img src="/logo/LOGO(DAPA).png" alt="Logo DAPA" className="img-fluid mb-4 mx-auto d-block" />
-          </a>
-          <a href="#" className="btn btn-light btn-lg btn-block mb-3">
-            <FontAwesomeIcon icon={faMagnifyingGlass} /> Buscar
-          </a>
-          <a href="/PaginaPerfil" className="btn btn-light btn-lg btn-block mb-3">
-            <FontAwesomeIcon icon={faUser} /> Perfil
-          </a>
-          <a href="#" className="btn btn-light btn-lg btn-block">
-            <FontAwesomeIcon icon={faUpload} /> Crear
-          </a>
-          <a href="/index" className="btn btn-light btn-lg btn-block">
-            <FontAwesomeIcon icon={faUpload} /> Salir
-          </a>
+        {/*  Barra de navegación superior */}
+        <div className="row align-items-center bg-dark py-2">
+          <div className="col-2">
+            <a href="/PaginaPrincipal">
+              <img src="logo/LOGO_DAPA_.svg" alt="Logo DAPA" style={{ height: '80px', marginLeft: '30px' }} />
+            </a>
+          </div>
+          <div className="col-6">
+            <div className="search-container">
+              <input type="text" className="form-control" placeholder="Search..." />
+              <button className="btn btn-light search-button">
+                <i className="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+          <div className="col-4 d-flex justify-content-end">
+            <div className="btn-group" style={{ marginRight: '30px' }}>
+              <button
+                className="btn btn-link text-light me-4"
+                onClick={() => navigate('/paginaPerfil')}
+                style={{ textDecoration: 'none', fontSize: '16px' }}
+              >
+                Perfil
+              </button>
+              <button
+                className="btn btn-link text-light me-4"
+                onClick={() => navigate('/PaginaPublicaciones')}
+                style={{ textDecoration: 'none', fontSize: '16px' }}
+              >
+                Tabla Publicaciones
+              </button>
+              <button
+                className="btn btn-link text-light me-4"
+                onClick={() => navigate('/TablaUsuarios')}
+                style={{ textDecoration: 'none', fontSize: '16px' }}
+              >
+                Tabla Usuarios
+              </button>
+              <button
+                className="btn btn-link text-light me-4"
+                onClick={() => navigate('/Pagina')}
+                style={{ textDecoration: 'none', fontSize: '16px' }}
+              >
+                Exit
+              </button>
+            </div>
+            <img src="imagenes/imagen2.jpeg" alt="Profile Icon" style={{ height: '50px', borderRadius: '50%' }} />
+          </div>
         </div>
+
 
         {/* Sección de contenido principal */}
         <div className="col-md-10 d-flex flex-column align-items-center">
           <h1 className="my-3">DAPA — De artistas, para artistas</h1>
-          <div className="table-responsive w-100">
+          <div className="table-responsive w-100" style={{ marginLeft: '20%' }}>
             <Table bordered className="text-center">
               <thead>
                 <tr>
