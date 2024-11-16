@@ -64,7 +64,7 @@ const RegisterModal = ({ show, onClose }) => {
             //Print response(we have to comment this /the user can watch de password)
             console.log('Usuario registrado', response);
             dispatch({ type: 'RESET' }); // Resetea el formulario después de registrarse
-            navigate('/PaginaPrincipal'); //Send to principalPage
+            window.location.reload();
         } catch (error) {
             console.error('Error al registrar usuario', error); //In case of error
         }
