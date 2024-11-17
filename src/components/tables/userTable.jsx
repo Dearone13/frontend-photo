@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Button, Table } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import RegisterUserModal from '../Modals/RegisterUserModal';
+import RegisterUserModal from '../Modals/RegisterModal'; // Usa este modal en lugar del anterior
 import UpdateUserModal from '../Modals/UpdateUserModal';
 import UserService from '../../services/userService';
 
@@ -31,10 +31,21 @@ function TablaUsuarios() {
     fetchUsers();
   }, []);
 
+  // Toggle the register modal
   const handleRegisterModal = () => {
     setShowRegisterModal(!showRegisterModal);
   };
 
+  // Handle registering a new user
+  const handleRegister = async (newUserData) => {
+    try {
+      const response = await UserService.registerUser(newUserData); // Llama al servicio para registrar
+      setUsers((prevUsers) => [...prevUsers, response]); // Actualiza la lista de usuarios
+      setShowRegisterModal(false); // Cierra el modal
+    } catch (error) {
+      console.error("Error al registrar usuario:", error);
+    }
+  };
   // Handle editing a user
   const handleEditUser = async (id) => {
     try {
@@ -61,23 +72,12 @@ function TablaUsuarios() {
     }
   };
 
-  // Handle registering a new user
-  const handleRegisterUser = async (newUserData) => {
-    try {
-      const response = await UserService.registerUser(newUserData); // Register user
-      setUsers((prevUsers) => [...prevUsers, response]); // Add new user to list
-      setShowRegisterModal(false); // Close modal
-    } catch (error) {
-      console.error("Error al registrar usuario:", error);
-    }
-  };
-
   return (
     <div className="container-fluid">
       <div className="row">
         <div className="row align-items-center bg-dark py-2">
           <div className="col-12 col-sm-2 text-center text-sm-start mb-2 mb-sm-0">
-            <a href="/PaginaPrincipal">
+            <a href="/Pagina">
               <img src="logo/LOGO_DAPA_.svg" alt="Logo DAPA" className="img-fluid" style={{ height: '80px' }} />
             </a>
           </div>
@@ -91,20 +91,13 @@ function TablaUsuarios() {
           </div>
           <div className="col-12 col-sm-4 d-flex justify-content-center justify-content-sm-end align-items-center">
             <div className="btn-group mb-2 mb-sm-0">
-              <button className="btn btn-link text-light me-2" onClick={() => navigate('/paginaPerfil')} style={{ textDecoration: 'none', fontSize: '16px' }}>
-                Perfil
-              </button>
               <button className="btn btn-link text-light me-2" onClick={() => navigate('/PaginaPublicaciones')} style={{ textDecoration: 'none', fontSize: '16px' }}>
                 Tabla Publicaciones
               </button>
               <button className="btn btn-link text-light me-2" onClick={() => navigate('/TablaUsuarios')} style={{ textDecoration: 'none', fontSize: '16px' }}>
                 Tabla Usuarios
               </button>
-              <button className="btn btn-link text-light me-2" onClick={() => navigate('/Pagina')} style={{ textDecoration: 'none', fontSize: '16px' }}>
-                Exit
-              </button>
             </div>
-            <img src="imagenes/imagen2.jpeg" alt="Profile Icon" className="rounded-circle" style={{ height: '50px', width: '50px' }} />
           </div>
         </div>
       </div>
@@ -152,11 +145,11 @@ function TablaUsuarios() {
             </Table>
           </div>
 
-          {/* Register User Modal */}
+          {/* Register Modal */}
           <RegisterUserModal
             show={showRegisterModal}
             onClose={handleRegisterModal}
-            onRegister={handleRegisterUser} // Pass the register handler to the modal
+            onRegister={handleRegister} // Usar el manejador ajustado
           />
 
           {/* Update User Modal */}
@@ -167,6 +160,7 @@ function TablaUsuarios() {
             userData={selectedUserData}
             updateUserData={setUsers}
           />
+          
         </div>
       </div>
     </div>

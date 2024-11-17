@@ -53,7 +53,7 @@ function PaginaPublicaciones() {
         {/* Barra de navegación superior */}
         <div className="row align-items-center bg-dark py-2">
           <div className="col-12 col-sm-2 text-center text-sm-start mb-2 mb-sm-0">
-            <a href="/PaginaPrincipal">
+            <a href="/Pagina">
               <img src="logo/LOGO_DAPA_.svg" alt="Logo DAPA" className="img-fluid" style={{ height: '80px' }} />
             </a>
           </div>
@@ -67,20 +67,13 @@ function PaginaPublicaciones() {
           </div>
           <div className="col-12 col-sm-4 d-flex justify-content-center justify-content-sm-end align-items-center">
             <div className="btn-group mb-2 mb-sm-0">
-              <button className="btn btn-link text-light me-2" onClick={() => navigate('/paginaPerfil')} style={{ textDecoration: 'none', fontSize: '16px' }}>
-                Perfil
-              </button>
               <button className="btn btn-link text-light me-2" onClick={() => navigate('/PaginaPublicaciones')} style={{ textDecoration: 'none', fontSize: '16px' }}>
                 Tabla Publicaciones
               </button>
               <button className="btn btn-link text-light me-2" onClick={() => navigate('/TablaUsuarios')} style={{ textDecoration: 'none', fontSize: '16px' }}>
                 Tabla Usuarios
               </button>
-              <button className="btn btn-link text-light me-2" onClick={() => navigate('/Pagina')} style={{ textDecoration: 'none', fontSize: '16px' }}>
-                Exit
-              </button>
             </div>
-            <img src="imagenes/imagen2.jpeg" alt="Profile Icon" className="rounded-circle" style={{ height: '50px', width: '50px' }} />
           </div>
         </div>
 
